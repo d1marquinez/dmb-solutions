@@ -6,6 +6,7 @@
 import { useApp } from './LangContext';
 import SiteHeader from './SiteHeader';
 import Reveal from './Reveal';
+import { getCurrency, formatPrice } from '@/lib/locale';
 
 const copy = {
   en: {
@@ -23,13 +24,13 @@ const copy = {
     services: {
       overline: 'What we do',
       title: 'Services & prices',
+      from: 'From',
       items: [
-        ['Haircut', 'From 12'],
-        ['Beard trim', 'From 10'],
-        ['Hot towel shave', 'From 18'],
-        ['Kids cut', 'From 9'],
+        ['Haircut', 12],
+        ['Beard trim', 10],
+        ['Hot towel shave', 18],
+        ['Kids cut', 9],
       ],
-      priceCurrency: '€',
     },
     about: {
       overline: 'The shop',
@@ -60,13 +61,13 @@ const copy = {
     services: {
       overline: 'Lo que hacemos',
       title: 'Servicios y precios',
+      from: 'Desde',
       items: [
-        ['Corte de pelo', 'Desde 12'],
-        ['Arreglo de barba', 'Desde 10'],
-        ['Afeitado toalla caliente', 'Desde 18'],
-        ['Corte infantil', 'Desde 9'],
+        ['Corte de pelo', 12],
+        ['Arreglo de barba', 10],
+        ['Afeitado toalla caliente', 18],
+        ['Corte infantil', 9],
       ],
-      priceCurrency: '€',
     },
     about: {
       overline: 'La barbería',
@@ -87,6 +88,8 @@ const copy = {
 export default function Barber() {
   const { lang } = useApp();
   const t = copy[lang];
+  const currency = getCurrency(lang);
+  const format = (amt: number) => formatPrice(amt, currency);
 
   return (
     <>
@@ -114,11 +117,11 @@ export default function Barber() {
             <h2 className="section-title">{t.services.title}</h2>
           </Reveal>
           <div className="cards">
-            {t.services.items.map(([name, price], i) => (
+            {(t.services.items as [string, number][]).map(([name, price], i) => (
               <Reveal key={name} delay={i * 80}>
                 <div className="card" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <h3 style={{ margin: 0 }}>{name}</h3>
-                  <span className="badge" style={{ margin: 0 }}>{t.services.priceCurrency}{price}</span>
+                  <span className="badge" style={{ margin: 0, whiteSpace: 'nowrap' }}>{t.services.from} {format(price)}</span>
                 </div>
               </Reveal>
             ))}
