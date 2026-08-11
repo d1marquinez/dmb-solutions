@@ -31,8 +31,8 @@ const copy = {
       from: 'From',
       items: [
         ['The Bloom', 45, floristImgs.bouquet],
-        ['The Stem', 35, floristImgs.pink],
-        ['The Field', 55, floristImgs.field],
+        ['The Stem', 35, floristImgs.white],
+        ['The Field', 55, floristImgs.shop],
         ['Jardin', 40, floristImgs.bouquet],
       ],
     },
@@ -71,8 +71,8 @@ const copy = {
       from: 'Desde',
       items: [
         ['El Bloom', 45, floristImgs.bouquet],
-        ['El Stem', 35, floristImgs.pink],
-        ['El Field', 55, floristImgs.field],
+        ['El Stem', 35, floristImgs.white],
+        ['El Field', 55, floristImgs.shop],
         ['Jardin', 40, floristImgs.bouquet],
       ],
     },
@@ -151,7 +151,7 @@ export default function Florist() {
         <div className="container">
           <div className="split">
             <div className="media" style={{ aspectRatio: '4/3' }}>
-              <Img src={floristImgs.pink.src} alt={t.about.mediaAlt} />
+              <Img src={floristImgs.shop.src} alt={t.about.mediaAlt} />
             </div>
             <div className="copy">
               <Reveal>

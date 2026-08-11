@@ -28,10 +28,10 @@ const copy = {
       title: 'Lunch menu',
       lead: 'Available Mon–Fri, 13:00–16:00.',
       dishes: [
-        ['Wood-fired paella', 'Arroz bomba, seafood and sofrito, from the ember of the oven.', restaurantImgs.food1],
-        ['Iberian ham croquettes', 'Creamy bechamel, cured ham, golden crust.', restaurantImgs.food2],
-        ['Grilled octopus', 'Galician octopus, smoked paprika, olive oil and potato.', restaurantImgs.food3],
-        ['Homemade tiramisu', 'Mascarpone, coffee and cocoa. Made each morning.', restaurantImgs.food1],
+        ['Wood-fired paella', 'Arroz bomba, seafood and sofrito, from the ember of the oven.', restaurantImgs.paella],
+        ['Iberian ham croquettes', 'Creamy bechamel, cured ham, golden crust.', restaurantImgs.croquetas],
+        ['Grilled octopus', 'Galician octopus, smoked paprika, olive oil and potato.', restaurantImgs.pulpo],
+        ['Homemade tiramisu', 'Mascarpone, coffee and cocoa. Made each morning.', restaurantImgs.tiramisu],
       ],
       cta: 'Reserve',
     },
@@ -68,10 +68,10 @@ const copy = {
       title: 'Menú del día',
       lead: 'Disponible Lun–Vie, 13:00–16:00.',
       dishes: [
-        ['Paella de leña', 'Arroz bomba, marisco y sofrito, desde la brasa del horno.', restaurantImgs.food1],
-        ['Croquetas de jamón', 'Bechamel cremosa, jamón curado y crujiente dorado.', restaurantImgs.food2],
-        ['Pulpo a la brasa', 'Pulpo gallego, pimentón ahumado, aceite de oliva y patata.', restaurantImgs.food3],
-        ['Tiramisú casero', 'Mascarpone, café y cacao. Hecho cada mañana.', restaurantImgs.food1],
+        ['Paella de leña', 'Arroz bomba, marisco y sofrito, desde la brasa del horno.', restaurantImgs.paella],
+        ['Croquetas de jamón', 'Bechamel cremosa, jamón curado y crujiente dorado.', restaurantImgs.croquetas],
+        ['Pulpo a la brasa', 'Pulpo gallego, pimentón ahumado, aceite de oliva y patata.', restaurantImgs.pulpo],
+        ['Tiramisú casero', 'Mascarpone, café y cacao. Hecho cada mañana.', restaurantImgs.tiramisu],
       ],
       cta: 'Reservar',
     },
@@ -149,7 +149,7 @@ export default function Restaurant() {
         <div className="container">
           <div className="split">
             <div className="media" style={{ aspectRatio: '4/3' }}>
-              <Img src={restaurantImgs.food2.src} alt={t.about.mediaAlt} />
+              <Img src={restaurantImgs.paella.src} alt={t.about.mediaAlt} />
             </div>
             <div className="copy">
               <Reveal>

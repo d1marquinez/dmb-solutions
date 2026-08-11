@@ -31,8 +31,8 @@ const copy = {
       items: [
         ['Haircut', 12, barberImgs.beard],
         ['Beard trim', 10, barberImgs.shave],
-        ['Hot towel shave', 18, barberImgs.tools],
-        ['Kids cut', 9, barberImgs.beard],
+        ['Hot towel shave', 18, barberImgs.shave],
+        ['Kids cut', 9, barberImgs.kids],
       ],
       cta: 'Book this service',
     },
@@ -71,8 +71,8 @@ const copy = {
       items: [
         ['Corte de pelo', 12, barberImgs.beard],
         ['Arreglo de barba', 10, barberImgs.shave],
-        ['Afeitado toalla caliente', 18, barberImgs.tools],
-        ['Corte infantil', 9, barberImgs.beard],
+        ['Afeitado toalla caliente', 18, barberImgs.shave],
+        ['Corte infantil', 9, barberImgs.kids],
       ],
       cta: 'Reserva este servicio',
     },
