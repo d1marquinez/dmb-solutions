@@ -1,6 +1,6 @@
 # DMB Solutions — Multi-site website
 
-Static website bundle built with **Next.js** (`output: export`, dark mode by default) that serves **multiple subdomains** as separate business sites from one single deployment. Used both for the DMB Solutions landing page and for example business websites shown to potential clients. Deploys automatically on push via the GitHub webhook.
+Static website bundle built with **Next.js 16** (`output: export`, dark mode by default) + **React 19** that serves **multiple subdomains** as separate business sites from one single deployment. Used both for the DMB Solutions landing page and for example business websites shown to potential clients. Deploys automatically on push via the GitHub webhook.
 
 ## Sites
 
