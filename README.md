@@ -30,7 +30,7 @@ To preview a specific subdomain locally, edit `lib/i18n.ts` `getSiteKey()` tempo
 ## Build
 
 ```bash
-npm run build    # outputs static site to ./out
+npm run build    # outputs static site to ./dist
 ```
 
 ## Deploy in Coolify
@@ -47,7 +47,7 @@ The repo builds a static export (`next.config.mjs` → `output: 'export'`). Reco
 5. Coolify/Traefik issues a Let's Encrypt certificate per subdomain automatically.
 6. Create the DNS records in Cloudflare (an existing wildcard `*.gohost.one` covers all of them) pointing to the Contabo VPS.
 
-> Since it's static, any simple static host (GitHub Pages, `npx serve ./out`, nginx) works — you are not locked to Coolify.
+> Since it's static, any simple static host (GitHub Pages, `npx serve ./dist`, nginx) works — you are not locked to Coolify.
 
 ## Project layout
 
