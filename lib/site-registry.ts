@@ -1,6 +1,5 @@
 // lib/site-registry.ts
 // Registro central de sitios (multi-host). Cada subdominio mapea a un sitio.
-// Se usa para decidir qué site renderizar y, en el landing, para el portafolio.
 
 export type SiteId = 'main' | 'barber' | 'restaurant' | 'florist';
 
@@ -8,8 +7,8 @@ export interface SiteInfo {
   id: SiteId;
   host: string; // subdominio completo
   slug: string; // subdominio corto (primer label)
-  title: string; // título cuando está colgado (landing)
-  description: string;
+  title: string; // nombre del sitio
+  tagline: { en: string; es: string }; // breve descripción, bilingüe
 }
 
 export const SITES: SiteInfo[] = [
@@ -17,29 +16,38 @@ export const SITES: SiteInfo[] = [
     id: 'barber',
     host: 'barber.gohost.one',
     slug: 'barber',
-    title: 'Golden Scissors — Barber Shop',
-    description: 'Modern barbershop with bookings, services and gallery.',
+    title: 'Golden Scissors',
+    tagline: {
+      en: 'A modern barbershop with online booking, services and gallery.',
+      es: 'Una barbería moderna con reservas online, servicios y galería.',
+    },
   },
   {
     id: 'restaurant',
     host: 'restaurant.gohost.one',
     slug: 'restaurant',
-    title: 'La Tavola — Mediterranean Restaurant',
-    description: 'Menu of the day, reservations and authentic Mediterranean cuisine.',
+    title: "La Tavola",
+    tagline: {
+      en: 'A Mediterranean restaurant with a daily menu and table reservations.',
+      es: 'Un restaurante mediterráneo con menú del día y reservas de mesa.',
+    },
   },
   {
     id: 'florist',
     host: 'florist.gohost.one',
     slug: 'florist',
-    title: 'Bloom & Stem — Flower Shop',
-    description: 'Same-day flower delivery, bouquets for every occasion.',
+    title: 'Bloom & Stem',
+    tagline: {
+      en: 'A flower shop with same-day delivery and bouquets for every moment.',
+      es: 'Una floristería con entrega el mismo día y ramos para cada momento.',
+    },
   },
 ];
 
 // Resuelve un site key (de getSiteKey) a una SiteInfo. main por defecto.
 export function resolveSite(siteKey: string): SiteInfo {
   const found = SITES.find(
-    (s) => s.slug === siteKey || s.host === siteKey,
+    (s) => s.slug === siteKey || s.host === siteKey
   );
   if (found) return found;
   return {
@@ -47,6 +55,9 @@ export function resolveSite(siteKey: string): SiteInfo {
     host: 'main.gohost.one',
     slug: 'main',
     title: 'DMB Solutions',
-    description: 'We build and host websites for local businesses.',
+    tagline: {
+      en: 'Websites and hosting for local businesses.',
+      es: 'Creamos y alojamos webs para negocios locales.',
+    },
   };
 }

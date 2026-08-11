@@ -1,16 +1,16 @@
 'use client';
 
 // LanguageSwitch: botón EN/ES visible en el header de todos los sitios.
-import { useLangCtx } from './LangContext';
+import { useApp } from './LangContext';
 
 export default function LanguageSwitch() {
-  const { lang, toggle } = useLangCtx();
+  const { lang, toggleLang } = useApp();
   return (
     <button
-      onClick={toggle}
+      onClick={toggleLang}
+      className="toggle-btn"
       aria-label={lang === 'en' ? 'Cambiar a español' : 'Switch to English'}
       title={lang === 'en' ? 'ES' : 'EN'}
-      className="lang-switch"
     >
       {lang === 'en' ? 'ES' : 'EN'}
     </button>

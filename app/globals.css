@@ -1,15 +1,44 @@
-/* app/globals.css — estilos base compartidos + diseño del landing */
-:root {
-  --brand: #0f2a4a;
-  --brand-light: #1a4a7a;
-  --accent: #e5942f;
-  --bg: #f7f8fa;
-  --text: #1c2530;
-  --muted: #5c6672;
-  --card: #ffffff;
-  --border: #e3e7ec;
-  --radius: 14px;
-  --shadow: 0 2px 12px rgba(15, 42, 74, 0.08);
+/* ============================================================
+   DMB Solutions — Global design system
+   Dark mode default · Light mode via [data-theme="light"]
+   Tokens: semitransparent borders, luminance surfaces, single accent
+   ============================================================ */
+
+:root,
+[data-theme='dark'] {
+  --bg: #08090a;              /* marketing black */
+  --panel: #0f1011;           /* panel dark */
+  --surface: #191a1b;         /* card / elevated */
+  --surface-2: #28282c;       /* hover / secondary surface */
+  --text: #f7f8f8;            /* primary text (not pure white) */
+  --text-2: #d0d6e0;          /* secondary text */
+  --text-3: #8a8f98;          /* muted text */
+  --text-4: #62666d;          /* de-emphasized */
+  --border: rgba(255, 255, 255, 0.08);
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --accent: #5e6ad2;          /* brand indigo (override per site if needed) */
+  --accent-hi: #7170ff;
+  --accent-hover: #828fff;
+  --shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+  color-scheme: dark;
+}
+
+[data-theme='light'] {
+  --bg: #f7f8f8;
+  --panel: #f3f4f5;
+  --surface: #ffffff;
+  --surface-2: #eef0f2;
+  --text: #1a1c1e;
+  --text-2: #3a3e42;
+  --text-3: #6b7075;
+  --text-4: #a0a5aa;
+  --border: rgba(0, 0, 0, 0.10);
+  --border-subtle: rgba(0, 0, 0, 0.06);
+  --accent: #4f5ac2;
+  --accent-hi: #5e6ad2;
+  --accent-hover: #7170ff;
+  --shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  color-scheme: light;
 }
 
 * {
@@ -20,16 +49,18 @@ html,
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
-    Arial, sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   color: var(--text);
   background: var(--bg);
   line-height: 1.6;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 h1, h2, h3 {
-  line-height: 1.2;
+  line-height: 1.15;
   margin: 0 0 0.5em;
+  letter-spacing: -0.02em;
+  font-weight: 600;
 }
 
 a {
@@ -37,24 +68,13 @@ a {
   text-decoration: none;
 }
 
-/* Language switch */
-.lang-switch {
-  background: transparent;
-  border: 1px solid var(--border);
-  color: var(--text);
-  border-radius: 8px;
-  padding: 4px 10px;
-  font-weight: 600;
-  font-size: 13px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.lang-switch:hover {
-  background: rgba(229, 148, 47, 0.12);
-  border-color: var(--accent);
+::selection {
+  background: var(--accent);
+  color: #fff;
 }
 
-/* Layout comunes */
+/* ---------------- Shared chrome ---------------- */
+
 .container {
   max-width: 1120px;
   margin: 0 auto;
@@ -62,91 +82,321 @@ a {
 }
 
 .section {
-  padding: 72px 0;
+  padding: 88px 0;
 }
 
 .section-title {
-  font-size: 2rem;
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
   max-width: 640px;
+  letter-spacing: -0.03em;
 }
 
-/* Landing-specific */
-.hero {
-  background: linear-gradient(135deg, var(--brand) 0%, var(--brand-light) 100%);
-  color: #fff;
-  padding: 96px 0;
-}
-.hero h1 {
-  font-size: 3rem;
-  max-width: 720px;
-}
-.hero p {
-  font-size: 1.2rem;
-  max-width: 560px;
-  opacity: 0.92;
+/* Sticky header */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-subtle);
 }
 
+.site-header-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.site-header nav {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.site-header nav a {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-2);
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.site-header nav a:hover {
+  color: var(--text);
+  background: var(--border-subtle);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Toggle controls (theme + language) */
+.toggle-btn {
+  background: var(--border-subtle);
+  border: 1px solid var(--border);
+  color: var(--text-2);
+  border-radius: 999px;
+  min-width: 44px;
+  height: 38px;
+  padding: 0 12px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggle-btn:hover {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+/* Buttons */
 .btn {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   background: var(--accent);
   color: #fff;
   font-weight: 600;
+  font-size: 15px;
   padding: 12px 22px;
   border-radius: 10px;
   border: none;
   cursor: pointer;
-}
-.btn:hover {
-  filter: brightness(1.05);
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 4px 20px color-mix(in srgb, var(--accent) 35%, transparent);
 }
 
+.btn:hover {
+  background: var(--accent-hi);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 28px color-mix(in srgb, var(--accent) 45%, transparent);
+}
+
+.btn-ghost {
+  background: var(--border-subtle);
+  border: 1px solid var(--border);
+  color: var(--text);
+  box-shadow: none;
+}
+
+.btn-ghost:hover {
+  background: var(--surface-2);
+  transform: translateY(-1px);
+  box-shadow: none;
+}
+
+/* Cards */
 .cards {
   display: grid;
-  gap: 24px;
+  gap: 22px;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  margin-top: 32px;
+  margin-top: 36px;
 }
 
 .card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  padding: 28px;
   box-shadow: var(--shadow);
+  transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
 }
-.card h3 {
-  font-size: 1.2rem;
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border);
 }
-.card .badge {
+
+.badge {
   display: inline-block;
-  background: rgba(229, 148, 47, 0.14);
-  color: #a56b12;
+  background: color-mix(in srgb, var(--accent) 20%, transparent);
+  color: var(--accent-hi);
   font-size: 12px;
   font-weight: 700;
-  padding: 3px 10px;
+  padding: 4px 12px;
   border-radius: 999px;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
+  letter-spacing: 0.01em;
 }
 
-/* Header compartido */
-.site-header {
+/* footer */
+footer {
+  border-top: 1px solid var(--border-subtle);
+  padding: 32px 0;
+  color: var(--text-3);
+  font-size: 14px;
+  background: var(--panel);
+}
+
+/* ---------------- Sliders / carousel (portfolio & example sites) ---------------- */
+
+.slider {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 8px 4px 24px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.slider::-webkit-scrollbar {
+  height: 8px;
+}
+.slider::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 8px;
+}
+.slider::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.slide {
+  flex: 0 0 min(340px, 80vw);
+  scroll-snap-align: start;
+}
+
+/* ---------------- Hero ---------------- */
+
+.hero {
+  position: relative;
+  padding: 120px 0 96px;
+  border-bottom: 1px solid var(--border-subtle);
+  overflow: hidden;
+}
+
+/* subtle radial glow behind hero (non-chromatic, respects theme) */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: -20% 0 auto 0;
+  height: 60%;
+  background: radial-gradient(
+    ellipse 60% 60% at 50% 0%,
+    color-mix(in srgb, var(--accent) 22%, transparent),
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.hero h1 {
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  letter-spacing: -0.035em;
+  max-width: 780px;
+  font-weight: 650;
+  margin-bottom: 20px;
+}
+
+.hero .lead {
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  color: var(--text-2);
+  max-width: 620px;
+  margin-bottom: 32px;
+}
+
+.hero .cta-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* ---------------- Reveal-on-scroll effect ---------------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------------- Pricing ---------------- */
+
+.price-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.price-amount {
+  font-size: clamp(2.2rem, 5vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin: 8px 0;
+}
+
+.price-period {
+  color: var(--text-3);
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+.price-features {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 24px;
+  display: grid;
+  gap: 10px;
+}
+
+.price-features li {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 16px 0;
-}
-.site-header nav a {
-  margin-right: 18px;
-  font-weight: 500;
-  color: var(--muted);
-}
-.site-header nav a:hover {
-  color: var(--brand);
+  gap: 10px;
+  color: var(--text-2);
+  font-size: 14px;
 }
 
-footer {
-  border-top: 1px solid var(--border);
-  padding: 24px 0;
-  color: var(--muted);
-  font-size: 14px;
+.price-features li::before {
+  content: '✓';
+  color: var(--accent-hi);
+  font-weight: 700;
+  flex: 0 0 auto;
+}
+
+/* ---------------- Misc ---------------- */
+
+.muted {
+  color: var(--text-3);
+}
+
+.stacked {
+  display: grid;
+  gap: 8px;
+}
+
+/* Animations — respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
 }

@@ -1,107 +1,152 @@
 'use client';
 
-// Barber — barber.gohost.one · Golden Scissors barber shop
+// Barber — barber.gohost.one · Golden Scissors
+// Web de ejemplo de barbería. Tema moderno, dark por defecto.
 
-import { useLangCtx } from './LangContext';
-import LanguageSwitch from './LanguageSwitch';
+import { useApp } from './LangContext';
+import SiteHeader from './SiteHeader';
+import Reveal from './Reveal';
 
 const copy = {
   en: {
-    hero: 'Golden Scissors',
-    sub: 'Traditional barber shop. Cuts, shaves and hot-towel treatments.',
-    book: 'Book now',
-    services: 'Services',
-    price: 'from €12',
-    about: 'About',
-    aboutText:
-      'A modern take on the classic barbershop. Walk in for a sharp cut and a straight-razor finish.',
-    hours: 'Opening hours',
-    hoursValue: 'Tue–Sat · 9:00–20:00',
-    contact: 'Find us',
-    contactValue: 'District 7, Calle Mayor 12',
-    footer: 'Golden Scissors · your neighborhood barber',
+    brand: 'Golden Scissors',
+    nav: [
+      { href: '#services', label: 'Services' },
+      { href: '#about', label: 'About' },
+      { href: '#contact', label: 'Book' },
+    ],
+    hero: {
+      title: 'Sharp cuts. Honest craft.',
+      lead: 'Traditional barbershop with a modern twist. Cuts, beard sculpting and hot-towel shaves, done right.',
+      cta: 'Book a slot',
+    },
+    services: {
+      overline: 'What we do',
+      title: 'Services & prices',
+      items: [
+        ['Haircut', 'From 12'],
+        ['Beard trim', 'From 10'],
+        ['Hot towel shave', 'From 18'],
+        ['Kids cut', 'From 9'],
+      ],
+      priceCurrency: '€',
+    },
+    about: {
+      overline: 'The shop',
+      title: 'A barber in the neighborhood',
+      lead: 'Walk in for a sharp cut and a straight-razor finish. Tea’s on, no appointment fuss — booking takes a minute.',
+    },
+    contact: {
+      overline: 'Find us',
+      title: 'Drop by',
+      hours: 'Tue–Sat · 9:00–20:00',
+      address: 'Calle Mayor 12, Distrito 7',
+      cta: 'Book now',
+    },
+    footer: 'Golden Scissors — your neighborhood barber.',
   },
   es: {
-    hero: 'Golden Scissors',
-    sub: 'Barbería tradicional. Cortes, afeitados y toallas calientes.',
-    book: 'Reserva ahora',
-    services: 'Servicios',
-    price: 'desde 12€',
-    about: 'Nosotros',
-    aboutText:
-      'Una visión moderna de la barbería clásica. Entra para un corte preciso y un acabado con navaja.',
-    hours: 'Horario',
-    hoursValue: 'Mar–Sáb · 9:00–20:00',
-    contact: 'Encuéntranos',
-    contactValue: 'Distrito 7, Calle Mayor 12',
-    footer: 'Golden Scissors · tu barbería de barrio',
+    brand: 'Golden Scissors',
+    nav: [
+      { href: '#services', label: 'Servicios' },
+      { href: '#about', label: 'Nosotros' },
+      { href: '#contact', label: 'Reservar' },
+    ],
+    hero: {
+      title: 'Cortes precisos. Oficio honesto.',
+      lead: 'Barbería tradicional con un toque moderno. Cortes, arreglo de barba y afeitado con toalla caliente, bien hechos.',
+      cta: 'Reserva tu cita',
+    },
+    services: {
+      overline: 'Lo que hacemos',
+      title: 'Servicios y precios',
+      items: [
+        ['Corte de pelo', 'Desde 12'],
+        ['Arreglo de barba', 'Desde 10'],
+        ['Afeitado toalla caliente', 'Desde 18'],
+        ['Corte infantil', 'Desde 9'],
+      ],
+      priceCurrency: '€',
+    },
+    about: {
+      overline: 'La barbería',
+      title: 'Una barbería de barrio',
+      lead: 'Entra para un corte preciso y un acabado con navaja. Té servido, sin líos — reservar lleva un minuto.',
+    },
+    contact: {
+      overline: 'Encuéntranos',
+      title: 'Pásate por aquí',
+      hours: 'Mar–Sáb · 9:00–20:00',
+      address: 'Calle Mayor 12, Distrito 7',
+      cta: 'Reserva ahora',
+    },
+    footer: 'Golden Scissors — tu barbería de barrio.',
   },
-};
-
-const serviceList = {
-  en: ['Haircut', 'Beard trim', 'Hot towel shave', 'Kids cut'],
-  es: ['Corte de pelo', 'Arreglo de barba', 'Afeitado toalla caliente', 'Corte infantil'],
 };
 
 export default function Barber() {
-  const { lang } = useLangCtx();
+  const { lang } = useApp();
   const t = copy[lang];
-  const services = serviceList[lang];
 
   return (
     <>
-      <header className="container site-header">
-        <strong>Golden Scissors</strong>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <nav>
-            <a href="#services">{t.services}</a>
-            <a href="#about">{t.about}</a>
-            <a href="#contact">{t.contact}</a>
-          </nav>
-          <LanguageSwitch />
-        </div>
-      </header>
+      <SiteHeader brand={t.brand} links={t.nav} />
 
-      <section
-        className="hero"
-        style={{ background: 'linear-gradient(135deg, #3a2a1a 0%, #6b4a2a 100%)' }}
-      >
-        <div className="container">
-          <h1>{t.hero}</h1>
-          <p>{t.sub}</p>
-          <a className="btn" href="#contact">
-            {t.book}
-          </a>
+      <section className="hero">
+        <div className="hero-inner container">
+          <Reveal>
+            <p style={{ color: 'var(--accent-hi)', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', fontSize: 13 }}>
+              {t.services.overline}
+            </p>
+            <h1>{t.hero.title}</h1>
+            <p className="lead">{t.hero.lead}</p>
+            <div className="cta-row">
+              <a className="btn" href="#contact">{t.hero.cta}</a>
+            </div>
+          </Reveal>
         </div>
       </section>
 
       <section className="section" id="services">
         <div className="container">
-          <h2 className="section-title">{t.services}</h2>
+          <Reveal>
+            <p style={{ color: 'var(--accent-hi)', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', fontSize: 13, marginBottom: 8 }}>{t.services.overline}</p>
+            <h2 className="section-title">{t.services.title}</h2>
+          </Reveal>
           <div className="cards">
-            {services.map((s, i) => (
-              <div className="card" key={s}>
-                <h3>{s}</h3>
-                <span className="badge">{t.price} {i === 3 ? '· 10€' : ''}</span>
-              </div>
+            {t.services.items.map(([name, price], i) => (
+              <Reveal key={name} delay={i * 80}>
+                <div className="card" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <h3 style={{ margin: 0 }}>{name}</h3>
+                  <span className="badge" style={{ margin: 0 }}>{t.services.priceCurrency}{price}</span>
+                </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section" id="about" style={{ background: '#fff' }}>
+      <section className="section" id="about" style={{ background: 'var(--panel)' }}>
         <div className="container">
-          <h2 className="section-title">{t.about}</h2>
-          <p style={{ maxWidth: 560, color: 'var(--muted)' }}>{t.aboutText}</p>
+          <Reveal>
+            <p style={{ color: 'var(--accent-hi)', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', fontSize: 13, marginBottom: 8 }}>{t.about.overline}</p>
+            <h2 className="section-title">{t.about.title}</h2>
+            <p className="muted" style={{ maxWidth: 560 }}>{t.about.lead}</p>
+          </Reveal>
         </div>
       </section>
 
       <section className="section" id="contact">
         <div className="container">
-          <h2 className="section-title">{t.hours}</h2>
-          <p style={{ fontWeight: 600 }}>{t.hoursValue}</p>
-          <h3 style={{ marginTop: 24 }}>{t.contact}</h3>
-          <p style={{ color: 'var(--muted)' }}>{t.contactValue}</p>
+          <Reveal>
+            <p style={{ color: 'var(--accent-hi)', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', fontSize: 13, marginBottom: 8 }}>{t.contact.overline}</p>
+            <h2 className="section-title">{t.contact.title}</h2>
+            <div className="stacked" style={{ margin: '16px 0' }}>
+              <p style={{ fontWeight: 600, margin: 0 }}>{t.contact.hours}</p>
+              <p className="muted" style={{ margin: 0 }}>{t.contact.address}</p>
+            </div>
+            <a className="btn" href="#">{t.contact.cta}</a>
+          </Reveal>
         </div>
       </section>
 

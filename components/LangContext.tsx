@@ -1,7 +1,7 @@
 'use client';
 
-// LangContext: provee el idioma actual y la función para cambiarlo a todos los
-// sitios. El LanguageSwitch lo consume; cada sitio lee lang del contexto.
+// LangContext — provee idioma (EN/ES) y tema (dark/light) a todos los sitios.
+// Dark es el modo por defecto. La elección se persiste en localStorage.
 
 import {
   createContext,
@@ -12,34 +12,70 @@ import {
 } from 'react';
 import { getInitialLang, setLang as persistLang, type Lang } from '@/lib/i18n';
 
-interface LangCtx {
+export type Theme = 'dark' | 'light';
+export const THEME_KEY = 'dmb-theme';
+
+interface AppCtx {
   lang: Lang;
   setLang: (l: Lang) => void;
-  toggle: () => void;
+  toggleLang: () => void;
+  theme: Theme;
+  toggleTheme: () => void;
 }
 
-const Ctx = createContext<LangCtx>({
+const Ctx = createContext<AppCtx>({
   lang: 'en',
   setLang: () => {},
-  toggle: () => {},
+  toggleLang: () => {},
+  theme: 'dark', // dark por defecto
+  toggleTheme: () => {},
 });
+
+function getInitialTheme(): Theme {
+  if (typeof window === 'undefined') return 'dark';
+  try {
+    const stored = window.localStorage.getItem(THEME_KEY);
+    if (stored === 'dark' || stored === 'light') return stored;
+  } catch {
+    /* ignore */
+  }
+  return 'dark'; // por defecto oscuro
+}
 
 export function LangProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>('en');
+  const [theme, setThemeState] = useState<Theme>('dark');
 
   useEffect(() => {
     setLangState(getInitialLang());
+    setThemeState(getInitialTheme());
   }, []);
+
+  // Aplica el atributo data-theme al <html> y persiste
+  useEffect(() => {
+    const root = document.documentElement;
+    root.setAttribute('data-theme', theme);
+    try {
+      window.localStorage.setItem(THEME_KEY, theme);
+    } catch {
+      /* ignore */
+    }
+  }, [theme]);
 
   const setLang = (l: Lang) => {
     persistLang(l);
     setLangState(l);
   };
-  const toggle = () => setLang(lang === 'en' ? 'es' : 'en');
+  const toggleLang = () => setLang(lang === 'en' ? 'es' : 'en');
+  const toggleTheme = () => setThemeState((t) => (t === 'dark' ? 'light' : 'dark'));
 
-  return <Ctx.Provider value={{ lang, setLang, toggle }}>{children}</Ctx.Provider>;
+  return (
+    <Ctx.Provider value={{ lang, setLang, toggleLang, theme, toggleTheme }}>
+      {children}
+    </Ctx.Provider>
+  );
 }
 
-export function useLangCtx() {
+export function useApp() {
   return useContext(Ctx);
 }
