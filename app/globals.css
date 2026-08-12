@@ -525,6 +525,152 @@ footer {
   }
 }
 
+/* ---------------- CV page ---------------- */
+
+.cv-page {
+  min-height: 100vh;
+  background: var(--bg);
+  padding: 28px 24px 80px;
+}
+
+.cv-toolbar {
+  max-width: 1040px;
+  margin: 0 auto 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.cv-back {
+  color: var(--text-3);
+  font-size: 14px;
+}
+.cv-back:hover { color: var(--text); }
+.cv-actions { display: flex; align-items: center; gap: 8px; }
+.cv-print { padding: 9px 14px; font-size: 13px; }
+
+.cv-document {
+  max-width: 1040px;
+  margin: 0 auto;
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.25);
+  padding: clamp(28px, 6vw, 72px);
+}
+
+.cv-hero {
+  display: flex;
+  justify-content: space-between;
+  gap: 48px;
+  padding-bottom: 42px;
+  border-bottom: 1px solid var(--border);
+}
+.cv-kicker, .cv-section-label {
+  color: var(--accent-hi);
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  font-size: 11px;
+  font-weight: 700;
+}
+.cv-hero h1 {
+  font-size: clamp(2.7rem, 7vw, 5.4rem);
+  letter-spacing: -.065em;
+  line-height: .95;
+  margin: 16px 0 18px;
+  max-width: 640px;
+}
+.cv-role {
+  color: var(--text-2);
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  max-width: 620px;
+  margin: 0;
+}
+.cv-contact {
+  display: grid;
+  align-content: end;
+  justify-items: end;
+  gap: 6px;
+  color: var(--text-3);
+  font-size: 13px;
+  text-align: right;
+  white-space: nowrap;
+}
+.cv-contact a:hover { color: var(--accent-hi); }
+
+.cv-summary {
+  max-width: 800px;
+  padding: 34px 0 16px;
+  color: var(--text-2);
+  font-size: 17px;
+  line-height: 1.7;
+}
+.cv-summary p { margin: 0; }
+
+.cv-section {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 32px;
+  padding: 36px 0;
+  border-top: 1px solid var(--border-subtle);
+}
+.cv-section-content { min-width: 0; }
+.cv-entry + .cv-entry { margin-top: 42px; }
+.cv-entry-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: baseline;
+}
+.cv-entry h2, .cv-project h2 {
+  font-size: 18px;
+  margin: 0;
+  letter-spacing: -.02em;
+}
+.cv-entry-head span { color: var(--text-3); font-size: 13px; white-space: nowrap; }
+.cv-entry-sub { color: var(--accent-hi); font-size: 13px; margin: 5px 0 14px; }
+.cv-entry ul { margin: 0; padding-left: 18px; color: var(--text-2); }
+.cv-entry li { margin: 0 0 9px; padding-left: 4px; }
+
+.cv-projects { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.cv-project { border-top: 2px solid var(--accent); padding-top: 14px; }
+.cv-project p { color: var(--text-3); font-size: 14px; line-height: 1.6; margin-bottom: 0; }
+.cv-two-col { grid-template-columns: 1fr 1fr; gap: 48px; }
+.cv-two-col > div { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 24px; }
+.cv-two-col p { color: var(--text-2); font-size: 14px; line-height: 1.6; margin: 0 0 16px; }
+.cv-two-col strong { color: var(--text); }
+.cv-footer { display: flex; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 18px; color: var(--text-4); font-size: 12px; }
+
+@media (max-width: 720px) {
+  .cv-page { padding: 14px 10px 48px; }
+  .cv-toolbar { align-items: flex-start; }
+  .cv-hero { display: block; }
+  .cv-contact { justify-items: start; text-align: left; margin-top: 28px; white-space: normal; }
+  .cv-section, .cv-two-col, .cv-two-col > div { grid-template-columns: 1fr; gap: 14px; }
+  .cv-projects { grid-template-columns: 1fr; }
+  .cv-entry-head { display: block; }
+  .cv-entry-head span { display: block; margin-top: 5px; }
+  .cv-footer { display: block; }
+  .cv-footer span { display: block; margin-top: 5px; }
+}
+
+@media print {
+  :root, [data-theme='dark'], [data-theme='light'] {
+    --bg: #fff; --surface: #fff; --text: #111; --text-2: #333; --text-3: #555;
+    --border: #d6d6d6; --border-subtle: #e5e5e5; --accent-hi: #3049a5;
+  }
+  .no-print, .site-header { display: none !important; }
+  .cv-page { padding: 0; background: #fff; }
+  .cv-document { border: 0; box-shadow: none; max-width: none; padding: 0; }
+  .cv-hero { padding-bottom: 24px; }
+  .cv-summary { padding-top: 20px; font-size: 13px; }
+  .cv-section { padding: 20px 0; }
+  .cv-entry + .cv-entry { margin-top: 22px; }
+  .cv-entry li { margin-bottom: 5px; }
+  .cv-projects { gap: 14px; }
+  @page { margin: 16mm; size: A4; }
+}
+
 /* ---------------- Misc ---------------- */
 
 .muted {
