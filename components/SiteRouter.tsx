@@ -9,22 +9,28 @@ import Barber from './Barber';
 import Restaurant from './Restaurant';
 import Florist from './Florist';
 import CV from './CV';
+import ChristyCV from './ChristyCV';
 
 export default function SiteRouter() {
   const [site, setSite] = useState<string | null>(null);
-  const [isCV, setIsCV] = useState(false);
+  const [path, setPath] = useState('');
 
   useEffect(() => {
     setSite(getSiteKey());
-    setIsCV(window.location.pathname === '/cv' || window.location.pathname === '/cv/');
+    setPath(window.location.pathname);
   }, []);
 
   if (!site) return <div style={{ minHeight: '100vh' }} />;
+
+  const isCV = path === '/cv' || path === '/cv/';
+  const isChristy = path === '/christy' || path === '/christy/';
 
   return (
     <LangProvider>
       {site === 'main' && isCV ? (
         <CV />
+      ) : site === 'main' && isChristy ? (
+        <ChristyCV />
       ) : site === 'barber' ? (
         <Barber />
       ) : site === 'restaurant' ? (
