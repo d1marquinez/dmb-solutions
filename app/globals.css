@@ -596,6 +596,7 @@ footer {
   text-align: right;
   white-space: nowrap;
 }
+.cv-contact span:first-child::first-letter { color: var(--accent-hi); }
 .cv-contact a:hover { color: var(--accent-hi); }
 
 .cv-summary {
